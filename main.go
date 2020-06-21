@@ -38,6 +38,12 @@ func faq(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "Here's your Urgent Help Page\nPlease send an email if can't cope with FAQ<a href=\"mailto:faq@lenslocked.com\">faq@lenslocked.com</a>")
 }
 
+func notFound(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html")
+	w.WriteHeader(http.StatusNotFound)
+	fmt.Fprint(w,"<h1>Sorry But we couldn't the page you were looking for:(</h1>")
+}
+
 func main () {
 	//mux := &http.ServeMux{}
 	//mux.HandleFunc("/", handlerFunc) //adds more advanced router pattern / is default route to any subdirectory
@@ -45,9 +51,11 @@ func main () {
 	r.HandleFunc("/", home)
 	r.HandleFunc("/contact", contact)
 	r.HandleFunc("/faq", faq)
+	r.NotFoundHandler = http.HandlerFunc(notFound)
 	http.ListenAndServe(":3000", r)
 	//router := httprouter.New() // Code from third party library
 	//router.GET("/hello/:name/spanish", Hello) // Code from third party library
 	//http.HandleFunc("/", handlerFunc)
 	//http.ListenAndServe(":3000", nil)
+	//Km@il Kraldi, Gazaxey de Gotdu!
 }
