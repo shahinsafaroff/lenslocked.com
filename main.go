@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"github.com/julienschmidt/httprouter"
 )
 
 func handlerFunc(w http.ResponseWriter, r *http.Request) {
@@ -20,15 +19,16 @@ func handlerFunc(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func Hello(w http.ResponseWriter, r *http.Request, ps httprouter.Params) { //For Third party library
-	fmt.Fprint(w, "hello, ", ps.ByName("name"))
-}
+//func Hello(w http.ResponseWriter, r *http.Request, ps httprouter.Params) { //For Third party library
+//	fmt.Fprint(w, "hello, ", ps.ByName("name"))
+//}
 
 func main () {
 	//mux := &http.ServeMux{}
 	//mux.HandleFunc("/", handlerFunc) //adds more advanced router pattern / is default route to any subdirectory
-	router := httprouter.New() // Code from third party library
-	router.GET("/hello/:name/spanish", Hello) // Code from third party library
-	//http.HandleFunc("/",handlerFunc)
-	http.ListenAndServe(":3000", router)
+	//r := mux.NewRouter()
+	//router := httprouter.New() // Code from third party library
+	//router.GET("/hello/:name/spanish", Hello) // Code from third party library
+	http.HandleFunc("/", handlerFunc)
+	http.ListenAndServe(":3000", nil)
 }
