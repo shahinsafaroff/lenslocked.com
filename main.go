@@ -33,12 +33,18 @@ func contact(w http.ResponseWriter, r *http.Request){
 	fmt.Fprint(w,"To get in touch, please send an email to a <a href=\"mailto:support@lenslocked.com\">support@lenslocked.com</a>.")
 }
 
+func faq(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html")
+	fmt.Fprint(w, "Here's your Urgent Help Page\nPlease send an email if can't cope with FAQ<a href=\"mailto:faq@lenslocked.com\">faq@lenslocked.com</a>")
+}
+
 func main () {
 	//mux := &http.ServeMux{}
 	//mux.HandleFunc("/", handlerFunc) //adds more advanced router pattern / is default route to any subdirectory
 	r := mux.NewRouter()
 	r.HandleFunc("/", home)
 	r.HandleFunc("/contact", contact)
+	r.HandleFunc("/faq", faq)
 	http.ListenAndServe(":3000", r)
 	//router := httprouter.New() // Code from third party library
 	//router.GET("/hello/:name/spanish", Hello) // Code from third party library
